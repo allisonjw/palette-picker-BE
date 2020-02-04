@@ -14,6 +14,13 @@ desribe('Server', () => {
         it('should return a 200 status', async () => {
             const response = await request(app).get('/')
             expect(response.status).toBe(200)
+        });
+    });
+    describe('GET /api/v1/', () => {
+        it('should return a status code of 200 and all the colors', async () => {
+            //SET UP
+            //EXECUTION
+            //ASSERTION
         })
     })
 })
