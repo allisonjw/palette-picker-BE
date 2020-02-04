@@ -2,7 +2,7 @@
 
 ## Collaborators 
 - [Allison Wagner](https://github.com/allisonjw)
-- [Jessi Le-Ho](https://github.com/Jessiewithani)
+- [Jessie Le-Ho](https://github.com/Jessiewithani)
 
 ### [Sprint Project Board](https://github.com/allisonjw/palette-picker-BE/projects/1)
 
