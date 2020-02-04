@@ -6,7 +6,7 @@ exports.up = function(knex) {
         table.text('password');
         table.timestamps(true, true);
       }),
-  
+      
       knex.schema.createTable('projects', table => {
         table.increments('id').primary();      
         table.text('project_name');
@@ -14,7 +14,7 @@ exports.up = function(knex) {
         table.foreign('user_id').references('users.id')
         table.timestamps(true, true);
       }),
-  
+      
       knex.schema.createTable('palettes', table => {
         table.increments('id').primary();
         table.text('palette_name');
@@ -29,7 +29,7 @@ exports.up = function(knex) {
       })
     ]);
   };
-  
+
   exports.down = function(knex) {
     return Promise.all([
       knex.schema.dropTable('palettes'),
@@ -37,3 +37,4 @@ exports.up = function(knex) {
       knex.schema.dropTable('users')  
     ]);
   };
+
