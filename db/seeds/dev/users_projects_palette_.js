@@ -54,20 +54,3 @@ const createProject = (knex, project) =>
         
         return Promise.all(palettePromises)
     });
-
-const createPalette = (knex, palette) => knex('palettes').insert(palette);
-
-exports.seed = function(knex) {
-  return knex('palettes')
-    .del()
-    .then(() => knex('projects').del())
-    .then(() => knex('users').del())
-    .then(() => {
-      let userPromises = [];
-      users.forEach(user => {
-        userPromises.push(createUser(knex, user));
-      });
-      return Promise.all(userPromises);
-    })
-    .catch(error => console.log(`Error seeding data ${error}`));
-};
