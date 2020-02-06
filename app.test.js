@@ -26,9 +26,10 @@ describe('Server', () => {
             const response = await request(app).get('/api/v1/palettes');
             const palettes = response.body //to see if we get the response we want back
             //ASSERTION
-            expect(response.status).toBe(200) //HAPPY PATH
+            expect(response.status).toBe(200); //HAPPY PATH
             expect(palettes).toEqual(expectedPalettes);
             //now implement the route in the server file aka app.js
         })
     })
+    
 })

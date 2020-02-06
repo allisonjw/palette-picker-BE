@@ -16,13 +16,14 @@ app.get('/', (request, response) => {
   response.send('Let\'s create some palette color projects!');
 });
 
-app.get('/api/v1/users', async(request, response) => {
-  try{ //when this endpoint hits, we're going to try
-  const users = await database('users').select(); //pulling from our database and accessing the users table
-  response.status(200).json(users);
-  } catch (error) {
-    response.status(500).json({error});
+app.get('/api/v1/palettes', async(request, response) => {
+  try { //when this endpoint hits we're going to try
+  const palettes = await database('palettes').select();//pulling from out database and accessing the palettes table
+  response.status(200).json(palettes)
+  } catch (error ) {
+    response.status(500).json({error})
   }
 })
+
 
 export default app;
