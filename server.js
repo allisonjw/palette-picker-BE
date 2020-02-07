@@ -1,5 +1,5 @@
-// import "@babel/polyfill";
-const app = require('./app');
+
+import app from './app';
 
 app.set('port', process.env.PORT || 3001);
 

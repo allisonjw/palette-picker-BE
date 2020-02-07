@@ -1,5 +1,5 @@
-const express = require('express');
-const cors = require('cors');
+import express from 'express';
+import cors from 'cors';
 const app = express();
 
 const environment = process.env.NODE_ENV || 'development';
@@ -161,4 +161,4 @@ app.delete('/api/v1/projects/:id', async (request, response) => {
 })
 
 
-module.exports =  app;
+export default app;
