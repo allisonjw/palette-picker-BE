@@ -69,6 +69,27 @@ describe('Server', () => {
       
               //now implement the route
             })
+        });
+        describe('PATCH /api/v1/palettes/:id', () => { //HAPPY PATH
+            it('should return a status code of 204 and should update a palette', async () => {
+                //we would have to mock out the data that you want to edit
+                const updatedPaletteInfo = {
+                    palette_name: 'Japanese Sunrise',
+                    color_1: '#17E2B4',
+                    color_2: '#17E2B4',
+                    color_3: '#17E2B4',
+                    color_4: '#17E2B4',
+                    color_5: '#E52522'
+                }
+                const selectedPalette = await database('palettes').first();
+                const mockId = selectedPalette.id;
+
+                const response = await request(app).patch(`/api/v1/palettes/${mockId}`).send(updatedPaletteInfo);
+                const expectedPalette = await database('palettes').where('id', mockId)
+
+                expect(response.status).toBe(204);
+                expect(expectedPalette[0].palette_name).toEqual(updatedPaletteInfo.palette_name)
+            })
         })
     });
     describe('Projects', () => {
