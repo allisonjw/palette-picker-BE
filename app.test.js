@@ -105,6 +105,27 @@ describe('Server', () => {
               //now implement the route
             })
         })
+        describe('POST /api/v1/projects', () => { //similar api to get request, patch, or post
+            it('should post a new project to the database', async() => {
+              //setup
+              //mocking out a project
+              const newProject = { project_name: 'Allison\'s House'};
+              //execution
+              //utilize super test
+              //store the response in variable
+              const response = await request(app).post('/api/v1/projects').send(newProject) //going to send that new project over
+              //pull from the database
+              const projects = await database('projects').where('id', response.body.id[0]) //i'm going to check the database to see if the project is in there
+      
+              const project = projects[0] //pull that value out and give back project
+              //check the response that we get back
+              //assertion
+              expect(response.status).toBe(201);
+              expect(project.project).toEqual(newProject.project) //checking the resource check a different key
+      
+              //now implement the route
+            })
+        })
     })
     
 })

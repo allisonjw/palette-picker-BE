@@ -82,5 +82,24 @@ app.post('/api/v1/palettes', async (request, response) => {
   }
 })
 
+app.post('/api/v1/projects', async (request, response) => {
+  //pull actual payload that got sent from body of request
+  const project = request.body;
+  //checking the object to see if it has all the required parameters
+
+  for(let requiredParameter of ['project_name']) {
+    if(!project.hasOwnProperty(requiredParameter)) { 
+      return response
+        .status(422)
+        .send({error: `The expected format is: { project_name: <String>} You're missing a "${requiredParameter}" property.`})
+    }
+  }
+  try {
+    const id = await database('projects').insert(project, 'id');//inserting a project, and getting back the id
+    response.status(201).json({id});
+  } catch (error) {
+    response.status(500).json({error});
+  }
+})
 
 export default app;
