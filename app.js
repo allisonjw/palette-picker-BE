@@ -1,4 +1,4 @@
-import express from 'express';
+const express = require('express');
 import cors from 'cors';
 const app = express();
 
@@ -161,4 +161,4 @@ app.delete('/api/v1/projects/:id', async (request, response) => {
 })
 
 
-export default app;
+module.exports =  app;
