@@ -62,6 +62,25 @@ app.get('/api/v1/projects/:id', async(request, response) => {
   }
 });
 
+app.post('/api/v1/palettes', async (request, response) => {
+  //pull actual payload that got sent from body of request
+  const palette = request.body;
+  //checking the object to see if it has all the required parameters
+
+  for(let requiredParameter of ['palette_name', 'color_1', 'color_2', 'color_3', 'color_4', 'color_5']) {
+    if(!palette.hasOwnProperty(requiredParameter)) { 
+      return response
+        .status(422)
+        .send({error: `The expected format is: { palette_name: <String>, color_1: <String>, color_2: <String>, color_3: <String>, color_4: <String>, color_5: <String>} You're missing a "${requiredParameter}" property.`})
+    }
+  }
+  try {
+    const id = await database('palettes').insert(palette, 'id');//inserting a palette, and getting back the id
+    response.status(201).json({id});
+  } catch (error) {
+    response.status(500).json({error});
+  }
+})
 
 
 export default app;
