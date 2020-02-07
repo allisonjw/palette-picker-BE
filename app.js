@@ -25,5 +25,43 @@ app.get('/api/v1/palettes', async(request, response) => {
   }
 })
 
+app.get('/api/v1/palettes/:id', async(request, response) => {
+  const { id } = request.params;
+  try {
+    const palette = await database('palettes').where('id', id)
+    if(palette.length) {
+      response.status(200).json(palette)
+    } else {
+      response.status(404).json({error: 'palette not found'})
+    }
+  } catch (error) {
+    response.status(500).json({error})
+  }
+});
+
+app.get('/api/v1/projects', async(request, response) => {
+  try { //when this endpoint hits we're going to try
+  const projects = await database('projects').select();//pulling from out database and accessing the projects table
+  response.status(200).json(projects)
+  } catch (error ) {
+    response.status(500).json({error})
+  }
+});
+
+app.get('/api/v1/projects/:id', async(request, response) => {
+  const { id } = request.params;
+  try {
+    const project = await database('projects').where('id', id)
+    if(project.length) {
+      response.status(200).json(project)
+    } else {
+      response.status(404).json({error: 'project not found'})
+    }
+  } catch (error) {
+    response.status(500).json({error})
+  }
+});
+
+
 
 export default app;
