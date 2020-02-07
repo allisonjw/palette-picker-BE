@@ -1,5 +1,5 @@
 require("@babel/polyfill");;
-require('supertest');
+const request = require('supertest');
 const app = require('./app');
 
 const environment = process.env.NODE_ENV || 'development';
