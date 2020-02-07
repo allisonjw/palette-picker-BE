@@ -136,4 +136,17 @@ app.patch('/api/v1/projects/:id', async (request, response) => {
 
 })
 
+app.delete('/api/v1/palettes/:id', async (request, response) => {
+  const selectedPalette = await database('palettes').where('id', request.params.id).select();
+
+  if (selectedPalette.length) {
+    await database('palettes').where('id', request.params.id).del();
+
+    response.status(200).json(`Palette number ${request.params.id} has been removed`)
+  } else {
+    return response.status(400).json({error: `Palette number ${request.params.id} could not be found.`})
+  }
+})
+
+
 export default app;
