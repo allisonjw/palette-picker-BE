@@ -41,7 +41,7 @@ app.get('/api/v1/palettes/:id', async(request, response) => {
 
 app.get('/api/v1/projects', async(request, response) => {
   try { //when this endpoint hits we're going to try
-  const projects = await database('projects').select();//pulling from out database and accessing the palettes table
+  const projects = await database('projects').select();//pulling from out database and accessing the projects table
   response.status(200).json(projects)
   } catch (error ) {
     response.status(500).json({error})

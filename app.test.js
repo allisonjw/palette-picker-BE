@@ -76,12 +76,12 @@ describe('Server', () => {
                 expect(response.status).toBe(200);
                 expect(result).toEqual(expectedProject);
             });
-            it('should return a 404 and "palette not found" if the resource is not there', async () => {
+            it('should return a 404 and "project not found" if the resource is not there', async () => {
                 const invalidId = -1;
     
-                const response = await request(app).get(`/api/v1/palettes/${invalidId}`)
+                const response = await request(app).get(`/api/v1/projects/${invalidId}`)
                 expect(response.status).toBe(404);
-                expect(response.body.error).toEqual('palette not found');
+                expect(response.body.error).toEqual('project not found');
             })
         })
     })
