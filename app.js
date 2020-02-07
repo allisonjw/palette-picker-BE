@@ -102,4 +102,38 @@ app.post('/api/v1/projects', async (request, response) => {
   }
 })
 
+app.patch('/api/v1/palettes/:id', async (request, response) => {
+  const revisedPalette = request.body;
+  const { id } = request.params;
+  try {
+    const paletteId = await database('palettes').where('id', id).update(revisedPalette, 'id');
+
+    if (!paletteId) {
+      return response.status(404)
+    } else {
+      return response.status(204).json(paletteId)
+    }
+  } catch (error) {
+    response.status(500).json({error})
+  }
+
+})
+
+app.patch('/api/v1/projects/:id', async (request, response) => {
+  const revisedProject = request.body;
+  const { id } = request.params;
+  try {
+    const projectId = await database('projects').where('id', id).update(revisedProject, 'id');
+
+    if (!projectId) {
+      return response.status(404)
+    } else {
+      return response.status(204).json(projectId)
+    }
+  } catch (error) {
+    response.status(500).json({error})
+  }
+
+})
+
 export default app;
