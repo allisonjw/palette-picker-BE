@@ -84,6 +84,27 @@ describe('Server', () => {
                 expect(response.body.error).toEqual('project not found');
             })
         })
+        describe('POST /api/v1/palettes', () => { //similar api to get request, patch, or post
+            it('should post a new palette to the database', async() => {
+              //setup
+              //mocking out a palette
+              const newPalette = { palette_name: 'Sailing Away', color_1: '#17E2B4', color_2: '#143472', color_3: '#060E1E', color_4: '#A3AFC6', color_5: '#E52522' };
+              //execution
+              //utilize super test
+              //store the response in variable
+              const response = await request(app).post('/api/v1/palettes').send(newPalette) //going to send that new palette over
+              //pull from the database
+              const palettes = await database('palettes').where('id', response.body.id[0]) //i'm going to check the database to see if the palette is in there
+      
+              const palette = palettes[0] //pull that value out and give back palette
+              //check the response that we get back
+              //assertion
+              expect(response.status).toBe(201);
+              expect(palette.palette_name).toEqual(newPalette.palette_name) //checking the resource check a different key
+      
+              //now implement the route
+            })
+        })
     })
     
 })
