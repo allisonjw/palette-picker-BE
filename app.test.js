@@ -90,7 +90,18 @@ describe('Server', () => {
                 expect(response.status).toBe(204);
                 expect(expectedPalette[0].palette_name).toEqual(updatedPaletteInfo.palette_name)
             })
-        })
+        });
+        describe('DELETE /api/v1/palettes/:id', () => {
+            it('should return a status code of 200 and delete a palette', async () => {
+                const selectedPalette = await database('palettes').first();
+                const mockId = selectedPalette.id;
+
+                const response = await request(app).delete(`/api/v1/palettes/${mockId}`);
+
+                expect(response.status).toBe(200);
+                expect(response.body).toEqual(`Palette number ${mockId} has been removed`)
+            })
+        });
     });
     describe('Projects', () => {
         describe('GET /api/v1/projects', () => {
@@ -161,7 +172,18 @@ describe('Server', () => {
                 expect(response.status).toBe(204);
                 expect(expectedProject[0].project_name).toEqual(updatedProjectInfo.project_name)
             })
-        })
+        });
+        describe('DELETE /api/v1/projects/:id', () => {
+            it('should return a status code of 200 and delete a project', async () => {
+                const selectedProject = await database('projects').first();
+                const mockId = selectedProject.id;
+
+                const response = await request(app).delete(`/api/v1/projects/${mockId}`);
+
+                expect(response.status).toBe(200);
+                expect(response.body).toEqual(`Project number ${mockId} has been removed`)
+            })
+        });
 
     })
     
