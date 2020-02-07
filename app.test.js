@@ -145,7 +145,24 @@ describe('Server', () => {
       
               //now implement the route
             })
+        });
+        describe('PATCH /api/v1/projects/:id', () => { //HAPPY PATH
+            it('should return a status code of 204 and should update a project', async () => {
+                //we would have to mock out the data that you want to edit
+                const updatedProjectInfo = {
+                    project_name: 'Japanese House'
+                }
+                const selectedProject = await database('projects').first();
+                const mockId = selectedProject.id;
+
+                const response = await request(app).patch(`/api/v1/projects/${mockId}`).send(updatedProjectInfo);
+                const expectedProject = await database('projects').where('id', mockId)
+
+                expect(response.status).toBe(204);
+                expect(expectedProject[0].project_name).toEqual(updatedProjectInfo.project_name)
+            })
         })
+
     })
     
 })

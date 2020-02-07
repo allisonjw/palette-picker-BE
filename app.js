@@ -119,6 +119,21 @@ app.patch('/api/v1/palettes/:id', async (request, response) => {
 
 })
 
+app.patch('/api/v1/projects/:id', async (request, response) => {
+  const revisedProject = request.body;
+  const { id } = request.params;
+  try {
+    const projectId = await database('projects').where('id', id).update(revisedProject, 'id');
 
+    if (!projectId) {
+      return response.status(404)
+    } else {
+      return response.status(204).json(projectId)
+    }
+  } catch (error) {
+    response.status(500).json({error})
+  }
+
+})
 
 export default app;
