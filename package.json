@@ -6,7 +6,6 @@
   "scripts": {
     "start": "node server.js",
     "test": "NODE_ENV=test jest --forceExit",
-    "test:watch": "jest --watchAll"
   },
   "keywords": [],
   "author": "",
