@@ -1,7 +1,7 @@
 language: node_js
 node_js:
   - "node"
-  services:
+services:
   - postgresql
 before_script:
   - knex migrate:latest --env=test
