@@ -77,7 +77,7 @@ describe('Server', () => {
                 expect(response.body.error).toEqual('The expected format is: { palette_name: <String>, color_1: <String>, color_2: <String>, color_3: <String>, color_4: <String>, color_5: <String>}. You\'re missing a palette_name property.')
 
                 //now implement the server
-            })
+            });
         });
         describe('PATCH /api/v1/palettes/:id', () => { //HAPPY PATH
             it('should return a status code of 204 and should update a palette', async () => {
@@ -98,6 +98,17 @@ describe('Server', () => {
 
                 expect(response.status).toBe(204);
                 expect(expectedPalette[0].palette_name).toEqual(updatedPaletteInfo.palette_name)
+            });
+            it.skip('should return a status code of 400 if it was unable to locate the palette', async () => {
+                const revisedInfo = {
+                    palette_name: 'Birds of Paradise'
+                }
+                const invalidId = -2;
+
+                const response = await request(app).patch(`/api/v1/palettes/${invalidId}`);
+
+                expect(response.status).toBe(400) //bad request
+                expect(response.body.error).toEqual('Was unable to locate your project')
             })
         });
         describe('DELETE /api/v1/palettes/:id', () => {
@@ -164,7 +175,16 @@ describe('Server', () => {
               expect(project.project).toEqual(newProject.project) //checking the resource check a different key
       
               //now implement the route
-            })
+            });
+            it('should return a status code of 422 when a required parameter is missing', async () => { //SAD PATH
+                const newProject = {} //creating our new project object
+                const response = await request(app).post('/api/v1/projects').send(newProject);
+
+                expect(response.status).toBe(422);
+                expect(response.body.error).toEqual('The expected format is: { project_name: <String>} You\'re missing a project_name property.')
+
+                //now implement the server
+            });
         });
         describe('PATCH /api/v1/projects/:id', () => { //HAPPY PATH
             it('should return a status code of 204 and should update a project', async () => {
