@@ -101,7 +101,7 @@ app.delete('/api/v1/palettes/:id', async (request, response) => {
 
     response.status(200).json(`Palette number ${request.params.id} has been removed`)
   } else {
-    return response.status(400).json({error: `Palette number ${request.params.id} could not be found.`})
+    return response.status(400).json({error: `Palette number ${request.params.id} could not be found`})
   }
 });
 
@@ -148,24 +148,6 @@ app.post('/api/v1/projects', async (request, response) => {
   }
 });
 
-// app.post('/api/v1/projects', async (request, response) => {
-//   const newProject = request.body;
-//   for(let requiredParameter of ['project_name']) {
-//     if(!newProject[requiredParameter]) {
-//       return response
-//         .status(422)
-//         .send({error: `The expected format is: { project_name: <String>. Your\'re missing a ${requiredParameter} property.`})
-//     }
-//   }
-//   const newlyAddedProject = await database('projects').insert(newProject, 'id');
-
-//   if(newlyAddedProject) {
-//     return response.status(201).json({ id: newlyAddedProject[0]})
-//   } else {
-//     return response.status(422).json({error: 'Could not create project!'})
-//   }
-// });
-
 app.patch('/api/v1/projects/:id', async (request, response) => {
   const revisedProject = request.body;
   const { id } = request.params;
@@ -180,7 +162,6 @@ app.patch('/api/v1/projects/:id', async (request, response) => {
   } catch (error) {
     response.status(500).json({error})
   }
-
 })
 
 
@@ -192,7 +173,7 @@ app.delete('/api/v1/projects/:id', async (request, response) => {
 
     response.status(200).json(`Project number ${request.params.id} has been removed`)
   } else {
-    return response.status(400).json({error: `Project number ${request.params.id} could not be found.`})
+    return response.status(400).json({error: `Project number ${request.params.id} could not be found`})
   }
 })
 

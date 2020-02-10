@@ -120,6 +120,15 @@ describe('Server', () => {
 
                 expect(response.status).toBe(200);
                 expect(response.body).toEqual(`Palette number ${mockId} has been removed`)
+            });
+            it('should return a status code of 400 along with an error message', async () => {
+                const inValidId = -2;
+
+                const response = await request(app).delete(`/api/v1/palettes/${inValidId}`);
+
+                expect(response.status).toBe(400);
+
+                expect(response.body.error).toEqual('Palette number -2 could not be found');
             })
         });
     });
@@ -211,6 +220,15 @@ describe('Server', () => {
 
                 expect(response.status).toBe(200);
                 expect(response.body).toEqual(`Project number ${mockId} has been removed`)
+            });
+            it('should return a status code of 400 along with an error message', async () => {
+                const inValidId = -2;
+
+                const response = await request(app).delete(`/api/v1/projects/${inValidId}`);
+
+                expect(response.status).toBe(400);
+
+                expect(response.body.error).toEqual('Project number -2 could not be found');
             })
         });
 
