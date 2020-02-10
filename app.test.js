@@ -49,7 +49,7 @@ describe('Server', () => {
                 expect(response.body.error).toEqual('palette not found');
             })
         })
-        describe('POST /api/v1/palettes', () => { //similar api to get request, patch, or post
+        describe('POST /api/v1/palettes', () => { //similar api to get request, patch, or post. //HAPPY PATH
             it('should post a new palette to the database', async() => {
               //setup
               //mocking out a palette
@@ -68,6 +68,15 @@ describe('Server', () => {
               expect(palette.palette_name).toEqual(newPalette.palette_name) //checking the resource check a different key
       
               //now implement the route
+            });
+            it('should return a status code of 422 when a required parameter is missing', async () => { //SAD PATH
+                const newPalette = {} //creating our new palette object
+                const response = await request(app).post('/api/v1/palettes').send(newPalette);
+
+                expect(response.status).toBe(422);
+                expect(response.body.error).toEqual('The expected format is: { palette_name: <String>, color_1: <String>, color_2: <String>, color_3: <String>, color_4: <String>, color_5: <String>}. You\'re missing a palette_name property.')
+
+                //now implement the server
             })
         });
         describe('PATCH /api/v1/palettes/:id', () => { //HAPPY PATH

@@ -71,7 +71,7 @@ app.post('/api/v1/palettes', async (request, response) => {
     if(!palette.hasOwnProperty(requiredParameter)) { 
       return response
         .status(422)
-        .send({error: `The expected format is: { palette_name: <String>, color_1: <String>, color_2: <String>, color_3: <String>, color_4: <String>, color_5: <String>} You're missing a "${requiredParameter}" property.`})
+        .send({error: `The expected format is: { palette_name: <String>, color_1: <String>, color_2: <String>, color_3: <String>, color_4: <String>, color_5: <String>}. You're missing a ${requiredParameter} property.`})
     }
   }
   try {
@@ -99,6 +99,24 @@ app.post('/api/v1/projects', async (request, response) => {
     response.status(201).json({id});
   } catch (error) {
     response.status(500).json({error});
+  }
+});
+
+app.post('/api/v1/palettes', async (request, response) => {
+  const newPalette = request.body;
+  for(let requiredParameter of ['palette_name', 'color_1', 'color_2', 'color_3', 'color_4', 'color_5']) {
+    if(!newPalette[requiredParameter]) {
+      return response
+        .status(422)
+        .send({error: `The expected format is: { palette_name: <String>, color_1: <String>, color_2: <String>, color_3: <String>, color_4: <String>, color_5: <String>. Your\'re missing a ${requiredParameter} property.`})
+    }
+  }
+  const newlyAddedPalette = await database('palettes').insert(newPalette, 'id');
+
+  if(newlyAddedPalette) {
+    return response.status(201).json({ id: newslyAddedPalette[0]})
+  } else {
+    return response.status(422).json({error: 'Could not create palette!'})
   }
 })
 
