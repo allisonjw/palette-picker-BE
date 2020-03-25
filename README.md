@@ -31,11 +31,9 @@ This application was built using the following technologies:
 
 ---
 
-### Schema
-<details>
-<summary>Initial Design of Schema Database</summary>
-![Schema](.docs/images/schema_design.png)
-</details>
+### Initial Design of Schema Database
+
+![Schema](docs/images/schema_design.png)
 
 ---
 
